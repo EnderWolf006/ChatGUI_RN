@@ -4,8 +4,8 @@ import { Keyboard, Platform, TouchableNativeFeedback } from 'react-native';
 export const themeConfig = createTheme({
   lightColors: {
     primary: "#2563eb",
-    background: "#F3F3F3",
-    white: "#FAFAFA",  
+    background: "#F4F4F4",
+    white: "#FFFFFF",  
     black: "#111111",
 
     grey0: "#EEEEEE",
@@ -22,7 +22,7 @@ export const themeConfig = createTheme({
     white: "#111111",   
     black: "#FAFAFA",
 
-    grey0: "#262626",
+    grey0: "#202020",
     grey1: "#4C4C4C",
     grey2: "#727272",
     grey3: "#989898",
