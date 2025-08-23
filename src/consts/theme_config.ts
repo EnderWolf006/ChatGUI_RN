@@ -1,18 +1,5 @@
 import { createTheme } from "@rneui/themed";
 import { Platform, TouchableNativeFeedback } from 'react-native';
-import React from 'react';
-
-// 自定义 Touchable：通过设置 delayPressIn 延迟展示水波/高亮，这样在 ScrollView 中开始滚动（手指移动）时
-// 原本会立即出现的水波不会触发；正常点击（无明显滚动）仍然会在短暂延迟后出现水波反馈。
-// 说明：纯粹在滚动手势中，RN 会在成为滚动手势后取消触摸，因此延迟期间被取消便不会显示反馈。
-// 该方案最小侵入，只修改主题文件；若需更精细（例如动态监听父级 onScroll），可以后续扩展。
-const AndroidTouchable = (props: any) => {
-  // 使用 createElement 以避免在 .ts 文件中写 JSX
-  return React.createElement(TouchableNativeFeedback as any, {
-    delayPressIn: 90, // 延迟水波出现，减轻滚动手势误触反馈
-    ...props,
-  });
-};
 
 export const themeConfig = createTheme({
   lightColors: {
@@ -36,7 +23,8 @@ export const themeConfig = createTheme({
         radius,
         color: 'rgba(0, 0, 0, 0)',
         titleStyle: { color: theme.colors.black },
-        // 确保按钮本身也有圆角（部分平台需要）
+        delayPressIn: 50,
+        pressRetentionOffset: { top: 4, left: 4, bottom: 4, right: 4 },
         buttonStyle: [
           {
             borderRadius: radius,
@@ -45,14 +33,12 @@ export const themeConfig = createTheme({
           props?.buttonStyle as any],
         ...(Platform.OS === 'android'
           ? {
-            // @ts-ignore 自定义触摸组件（加入 delayPressIn 降低滚动时误触反馈）
-            TouchableComponent: AndroidTouchable as any,
-            background: TouchableNativeFeedback.Ripple('rgba(128,128,128,0.3)', false),
-            // 用 containerStyle 裁剪 ripple，保持与 radius 一致
+            background: TouchableNativeFeedback.Ripple('rgba(128,128,128,0.2)', false),
             containerStyle: [
               { borderRadius: radius, overflow: 'hidden' },
               props?.containerStyle as any,
             ],
+
           }
           : {
             // iOS 使用默认（Opacity）反馈逻辑
@@ -65,6 +51,7 @@ export const themeConfig = createTheme({
       size: 24,
     }),
     Input: (props, theme) => ({
+      renderErrorMessage: false,
       inputContainerStyle: {
         height: 44,
         borderRadius: 22,

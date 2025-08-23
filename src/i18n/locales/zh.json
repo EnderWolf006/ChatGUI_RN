@@ -1,0 +1,16 @@
+{
+  "chat": {
+    "footer": {
+      "placeholder": "问询任何问题"
+    }
+  },
+  "drawer": {
+    "actionbutton": {
+      "assistant": "助手",
+      "new_chat": "新聊天"
+    },
+    "search": {
+      "placeholder": "搜索"
+    }
+  }
+}

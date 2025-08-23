@@ -3,5 +3,29 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  }
+  },
+  "i18n-ally.localesPaths": [
+    "src/i18n/locales"
+  ], // 配置文件的路径
+  // 如下须要手动配置
+  "i18n-ally.keystyle": "nested", // 翻译路径格式 (翻译后变量格式 nested：嵌套式  flat:扁平式)
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.namespace": true,
+  "i18n-ally.enabledParsers": [
+    "ts",
+    "js",
+    "json"
+  ], // 翻译文件可允许的格式，默认json
+  "i18n-ally.sourceLanguage": "en", // 翻译源语言 (源文件) 根据此语言文件翻译其他语言文件的变量和内容
+  "i18n-ally.displayLanguage": "zh", // 显示语言 (显示文件/翻译文件)
+  "i18n-ally.enabledFrameworks": [
+    "react",
+    "react-i18next"
+  ],
+  "i18n-ally.encoding": "utf-8",
+  "i18n-ally.extract.ignoredByFiles": {
+    "src/i18n/index.ts": [
+      "useLanguage must be used within LanguageProvider"
+    ]
+  }, // 翻译文件的编码
 }

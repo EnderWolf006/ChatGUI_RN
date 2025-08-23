@@ -1,0 +1,16 @@
+{
+  "chat": {
+    "footer": {
+      "placeholder": "Ask anything..."
+    }
+  },
+  "drawer": {
+    "actionbutton": {
+      "assistant": "Assistant",
+      "new_chat": "New Chat"
+    },
+    "search": {
+      "placeholder": "Search"
+    }
+  }
+}

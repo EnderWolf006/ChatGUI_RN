@@ -1,7 +1,10 @@
+import { t } from '@/i18n';
+import { Lucide } from '@react-native-vector-icons/lucide';
 import { Avatar, Button, Icon, Input, Text, useTheme } from '@rneui/themed';
 import { Drawer } from 'expo-router/drawer';
 import { ScrollView, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 const DRAWER_GLOBAL_HORIZONTAL_PADDING = 12;
 
@@ -9,44 +12,63 @@ function DrawerContent() {
   const insets = useSafeAreaInsets();
   const { theme } = useTheme();
 
+  const ACTION_BUTTONS = [
+    {
+      title: t('drawer.actionbutton.new_chat'),
+      icon: <Lucide name='square-pen' size={22} color={theme.colors.grey2} />,
+    },
+    {
+      title: t('drawer.actionbutton.assistant'),
+      icon: <Icon name='dependabot' type='octicon' color={theme.colors.grey2} size={22} />,
+    },
+  ]
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.white, paddingTop: insets.top, }}>
-      {/* Header: Search bar * Setting Button */}
+      {/* Header: Search bar & Setting Button */}
       <View style={{ paddingVertical: 8, flexDirection: 'row', alignItems: 'center', paddingHorizontal: DRAWER_GLOBAL_HORIZONTAL_PADDING, gap: DRAWER_GLOBAL_HORIZONTAL_PADDING + 1 }}>
-        <Input containerStyle={{ flex: 1, paddingHorizontal: 0 }} renderErrorMessage={false} leftIcon={<Icon name="search"></Icon>} />
+        <Input
+          placeholder={t('drawer.search.placeholder')}
+          leftIconContainerStyle={{ paddingRight: 6 }}
+          containerStyle={{ flex: 1, paddingHorizontal: 0 }}
+           leftIcon={<Icon name="search" type="octicon"></Icon>}
+        />
         <Button
-          buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 38, width: 38, overflow: 'visible' }}
+          buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 38, width: 38 }}
           radius={19}
           type='clear'
           onPress={() => {
             console.log(11);
           }}
         >
-          <Icon
-            name='settings-outline'
-            type="ionicon" />
+          <Lucide name='square-pen' size={24} color={theme.colors.black} />
         </Button>
       </View>
+
       <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: insets.bottom + 66,
-          gap: 8,
         }}
       >
         {/* Fixed action buttons */}
-        {[0, 0, 0].map((v, i) => {
+        {ACTION_BUTTONS.map((v, i) => {
           return (
             <Button
               key={i}
-              buttonStyle={{ justifyContent: 'flex-start', paddingHorizontal: DRAWER_GLOBAL_HORIZONTAL_PADDING }}
-              titleStyle={{ fontWeight: '600' }}
-              icon={<Icon name='add' containerStyle={{ marginRight: DRAWER_GLOBAL_HORIZONTAL_PADDING }} />}
+              buttonStyle={{ justifyContent: 'flex-start', paddingHorizontal: DRAWER_GLOBAL_HORIZONTAL_PADDING + 6 }}
+              titleStyle={{ fontWeight: '600', marginLeft: DRAWER_GLOBAL_HORIZONTAL_PADDING + 6 }}
+              icon={v.icon}
               type="clear"
             >
-              {`ActionButton ${i + 1}`}
+              {v.title}
             </Button>
           )
         })}
+
+        {/* Divider */}
+        <View style={{ height: 12 }}></View>
 
         {/* History List */}
         {new Array(16).fill(0).map((v, i) => {
@@ -83,18 +105,18 @@ function DrawerContent() {
           gap: DRAWER_GLOBAL_HORIZONTAL_PADDING,
         }}>
         <Avatar
-          size={36}
+          size={34}
           rounded
           icon={{ name: "pencil", type: "font-awesome" }}
           containerStyle={{ backgroundColor: "#9700b9" }}
         />
         <Text style={{
-          fontSize: 22,
+          fontSize: 21,
           fontWeight: '700',
         }}>Guest User</Text>
       </Button>
 
-    </View>
+    </View >
   );
 }
 
@@ -125,7 +147,9 @@ export default function Layout() {
       }}
       drawerContent={DrawerContent}
     >
-      <Drawer.Screen name="index" />
+      <Drawer.Screen name="index" options={{
+        headerShown: false,
+      }} />
     </Drawer>
   );
 }
