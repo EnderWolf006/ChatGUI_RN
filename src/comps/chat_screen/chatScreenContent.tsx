@@ -1,4 +1,5 @@
 import { Button, Text, useTheme } from "@rneui/themed";
+import React from "react";
 import { ScrollView } from "react-native-gesture-handler";
 
 
@@ -20,8 +21,10 @@ export function ChatScreenContent({ ref, onScroll }: ChatScreenContentProps) {
       contentContainerStyle={{ gap: 14 }}
     >
       {new Array(15).fill(0).map((_, i) =>
-      (<><UserChatBubble key={i} />
-        <AssistantChatBubble key={`a_${i}`} /></>)
+      (<React.Fragment key={i}>
+        <UserChatBubble />
+        <AssistantChatBubble />
+      </React.Fragment>)
       )}
     </ScrollView>
   );
@@ -57,8 +60,7 @@ function AssistantChatBubble() {
   return (
     <Button
       buttonStyle={{ justifyContent: 'flex-start', paddingHorizontal: CHAT_GLOBAL_HORIZONTAL_PADDING }}>
-      {/* <MarkdownRenderer> */}
-      {/* </MarkdownRenderer> */}
+
     </Button>
   );
 }
