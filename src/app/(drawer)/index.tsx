@@ -71,7 +71,7 @@ function FooterInput() {
         style={{
           flex: 1,
           maxHeight: 120,
-          paddingHorizontal: 12,
+          paddingHorizontal: 10,
           paddingVertical: 14,
           borderRadius: 14,
           color: theme.colors.black,

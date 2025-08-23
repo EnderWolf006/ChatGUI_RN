@@ -23,8 +23,8 @@ export default function SafeView({
   ...rest
 }: SafeViewProps) {
   const insets = useSafeAreaInsets();
-  const isFocused = useIsFocused();               // 当前路由是否聚焦
-  const drawerStatus = useDrawerStatus?.();       // 'open' | 'closed'
+  const isFocused = useIsFocused();         
+  const drawerStatus = useDrawerStatus?.(); 
   const drawerOpen = drawerStatus === 'open';
 
   // 仅“聚焦且抽屉关闭”时启用键盘逻辑；否则当作 SafeAreaView
@@ -42,7 +42,6 @@ export default function SafeView({
   const paddingLeft = useLeft ? insets.left : 0;
   const paddingRight = useRight ? insets.right : 0;
 
-  // 用 Animated.Value 追踪 inset.bottom（支持旋转/设备变化）
   const insetBottomAV = useRef(new Animated.Value(insets.bottom)).current;
   useEffect(() => {
     insetBottomAV.setValue(insets.bottom);
@@ -50,16 +49,13 @@ export default function SafeView({
 
   const one = useRef(new Animated.Value(1)).current;
 
-  // replace: (1 - p) * inset.bottom + p * keyboardHeight
   const replacePB = Animated.add(
     Animated.multiply(Animated.subtract(one, progress), insetBottomAV),
     Animated.multiply(progress, heightAV)
   );
 
-  // add: inset.bottom + p * keyboardHeight
   const addPB = Animated.add(insetBottomAV, Animated.multiply(progress, heightAV));
 
-  // 未启用时 => 直接使用 inset.bottom（无动画）
   const paddingBottom = useBottom ? (enabled ? (bottomMode === 'replace' ? replacePB : addPB) : insets.bottom) : 0;
 
   return (

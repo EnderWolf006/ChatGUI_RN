@@ -14,7 +14,7 @@ export default function RootLayout() {
   const mergedTheme = useMemo(() => ({ ...themeConfig, mode }), [mode]);
   return (
     <LanguageProvider>
-      {/* @ts-ignore: 忽略 key 报错，使用 key 以在主题模式变化时强制重新挂载 */}
+      {/* @ts-ignore: ignored ts key error, use it update ui forcibly */}
       <ThemeProvider theme={mergedTheme} key={mode}>
         <SafeAreaProvider>
           <Stack screenOptions={{ headerShown: false, }} />

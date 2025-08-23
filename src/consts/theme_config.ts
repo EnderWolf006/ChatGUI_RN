@@ -19,12 +19,12 @@ export const themeConfig = createTheme({
     }),
     Button: (props, theme) => {
       const radius = (props?.radius as any) ?? 0;
-      // 改onPress 注入dismiss 键盘
+      // inject onPress to dismiss keyboard by default
       if (props?.onPress) {
         const userOnPress = props.onPress;
         props.onPress = (...args) => {
+          userOnPress(...args) 
           Keyboard.dismiss();
-          userOnPress(...args);
         }
       }
       return {
@@ -49,7 +49,6 @@ export const themeConfig = createTheme({
 
           }
           : {
-            // iOS 使用默认（Opacity）反馈逻辑
             containerStyle: [props?.containerStyle as any],
           }),
       };
