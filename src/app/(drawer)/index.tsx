@@ -1,9 +1,10 @@
 import SafeView from "@/comps/safeView";
 import { t } from "@/i18n";
 import Lucide from "@react-native-vector-icons/lucide";
-import { Button, Icon, Input, Text, useTheme } from "@rneui/themed";
+import { Button, Icon, Text, useTheme } from "@rneui/themed";
 import { useNavigation } from "expo-router";
-import { Pressable, View } from "react-native";
+import { useState } from "react";
+import { Keyboard, Pressable, TextInput, View } from "react-native";
 
 export default function Index() {
   const { theme } = useTheme();
@@ -34,6 +35,7 @@ function Content() {
 
 function FooterInput() {
   const { theme } = useTheme();
+  const [value, setValue] = useState('');
   return <View style={{ padding: 8, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: theme.colors.white }}>
     <Button
       buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 48, width: 48, backgroundColor: theme.colors.background }}
@@ -54,11 +56,24 @@ function FooterInput() {
       alignItems: 'center',
       paddingHorizontal: 8,
     }}>
-      <Input
+      <TextInput
+        style={{
+          flex: 1,
+          maxHeight: 120,
+          paddingHorizontal: 12,
+          paddingVertical: 14,
+          borderRadius: 14,
+          color: theme.colors.black,
+          fontSize: 16,
+          lineHeight: 20,
+        }}
+        placeholderTextColor={ theme.colors.grey2 }
         placeholder={t('chat.footer.placeholder')}
-
-        containerStyle={{ flex: 1, height: "100%", paddingHorizontal: 0 }}
-        inputContainerStyle={{ backgroundColor: 'rgba(0,0,0,0)', paddingHorizontal: 4 }}
+        multiline
+        value={value}
+        onChangeText={setValue}
+        onSubmitEditing={() => { Keyboard.dismiss(); }}
+        textAlignVertical="top"
       />
       <Button
         buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 34, width: 34 }}
@@ -110,7 +125,7 @@ function Header() {
     {/* Model name & Switch model */}
     <Pressable
       style={({ pressed }) => [
-        pressed && { opacity: 0.7 },
+        pressed && { opacity: 0.6 },
         { flexDirection: 'row', alignItems: 'center', flex: 1, justifyContent: 'flex-start', paddingRight: 14 }
       ]}
       onPress={() => console.log('Pressed!')} >
