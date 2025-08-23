@@ -1,15 +1,18 @@
 import { t } from '@/i18n';
 import { Lucide } from '@react-native-vector-icons/lucide';
+import { useDrawerStatus } from '@react-navigation/drawer';
 import { Avatar, Button, Icon, Input, Text, useTheme } from '@rneui/themed';
 import { Drawer } from 'expo-router/drawer';
-import { ScrollView, View, useWindowDimensions } from 'react-native';
+import { useEffect } from 'react';
+import { Keyboard, ScrollView, View, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
-const DRAWER_GLOBAL_HORIZONTAL_PADDING = 12;
+const DRAWER_GLOBAL_HORIZONTAL_PADDING = 16;
 
 function DrawerContent() {
   const insets = useSafeAreaInsets();
+  const drawerStatus = useDrawerStatus?.();
   const { theme } = useTheme();
 
   const ACTION_BUTTONS = [
@@ -23,6 +26,11 @@ function DrawerContent() {
     },
   ]
 
+  // Close drawer when drawerStatus changes 
+  useEffect(() => {
+    Keyboard.dismiss();
+  }, [drawerStatus]);
+
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.white, paddingTop: insets.top, }}>
       {/* Header: Search bar & Setting Button */}
@@ -31,7 +39,7 @@ function DrawerContent() {
           placeholder={t('drawer.search.placeholder')}
           leftIconContainerStyle={{ paddingRight: 6 }}
           containerStyle={{ flex: 1, paddingHorizontal: 0 }}
-           leftIcon={<Icon name="search" type="octicon"></Icon>}
+          leftIcon={<Icon name="search" type="octicon"></Icon>}
         />
         <Button
           buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 38, width: 38 }}
@@ -46,6 +54,8 @@ function DrawerContent() {
       </View>
 
       <ScrollView
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode='on-drag'
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -57,8 +67,8 @@ function DrawerContent() {
           return (
             <Button
               key={i}
-              buttonStyle={{ justifyContent: 'flex-start', paddingHorizontal: DRAWER_GLOBAL_HORIZONTAL_PADDING + 6 }}
-              titleStyle={{ fontWeight: '600', marginLeft: DRAWER_GLOBAL_HORIZONTAL_PADDING + 6 }}
+              buttonStyle={{ justifyContent: 'flex-start', paddingHorizontal: DRAWER_GLOBAL_HORIZONTAL_PADDING }}
+              titleStyle={{ fontWeight: '600', marginLeft: DRAWER_GLOBAL_HORIZONTAL_PADDING }}
               icon={v.icon}
               type="clear"
             >
