@@ -4,28 +4,32 @@ import Lucide from "@react-native-vector-icons/lucide";
 import { Button, Icon, Text, useTheme } from "@rneui/themed";
 import { useNavigation } from "expo-router";
 import { useState } from "react";
-import { Keyboard, Pressable, TextInput, View } from "react-native";
+import { Keyboard, Pressable, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 export default function Index() {
   const { theme } = useTheme();
 
 
-  return <SafeView style={{ flex: 1, backgroundColor: theme.colors.white }}>
+  return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <SafeView style={{ flex: 1, backgroundColor: theme.colors.white }}>
 
-    <Header />
+        <Header />
 
-    <View style={{
-      flex: 1,
-      borderTopWidth: 0.66,
-      borderColor: theme.colors.grey3 + '26',
-      borderBottomWidth: 0.66,
-    }}>
-      <Content />
-    </View>
+        <View style={{
+          flex: 1,
+          borderTopWidth: 0.66,
+          borderColor: theme.colors.grey3 + '26',
+          borderBottomWidth: 0.66,
+        }}>
+          <Content />
+        </View>
 
-    <FooterInput />
+        <FooterInput />
 
-  </SafeView >
+      </SafeView >
+    </TouchableWithoutFeedback>
+  );
 }
 
 function Content() {
@@ -36,7 +40,14 @@ function Content() {
 function FooterInput() {
   const { theme } = useTheme();
   const [value, setValue] = useState('');
-  return <View style={{ padding: 8, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: theme.colors.white }}>
+  return <View style={{
+    padding: 8,
+    paddingBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    gap: 10,
+    backgroundColor: theme.colors.white
+  }}>
     <Button
       buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 48, width: 48, backgroundColor: theme.colors.background }}
       radius={24}
@@ -53,7 +64,7 @@ function FooterInput() {
       gap: 12,
       flexDirection: 'row',
       borderRadius: 22,
-      alignItems: 'center',
+      alignItems: 'flex-end',
       paddingHorizontal: 8,
     }}>
       <TextInput
@@ -67,7 +78,7 @@ function FooterInput() {
           fontSize: 16,
           lineHeight: 20,
         }}
-        placeholderTextColor={ theme.colors.grey2 }
+        placeholderTextColor={theme.colors.grey2}
         placeholder={t('chat.footer.placeholder')}
         multiline
         value={value}
@@ -76,6 +87,7 @@ function FooterInput() {
         textAlignVertical="top"
       />
       <Button
+        containerStyle={{ marginBottom: 7 }}
         buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 34, width: 34 }}
         radius={26}
         type='clear'
@@ -86,6 +98,7 @@ function FooterInput() {
         <Icon type="ionicon" name="mic-outline" color={theme.colors.grey2}></Icon>
       </Button>
       <Button
+        containerStyle={{ marginBottom: 7 }}
         buttonStyle={{ paddingVertical: 0, paddingHorizontal: 0, height: 34, width: 34, backgroundColor: theme.colors.black }}
         radius={26}
         type='clear'

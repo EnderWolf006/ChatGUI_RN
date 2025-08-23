@@ -1,5 +1,5 @@
 import { createTheme } from "@rneui/themed";
-import { Platform, TouchableNativeFeedback } from 'react-native';
+import { Keyboard, Platform, TouchableNativeFeedback } from 'react-native';
 
 export const themeConfig = createTheme({
   lightColors: {
@@ -19,6 +19,14 @@ export const themeConfig = createTheme({
     }),
     Button: (props, theme) => {
       const radius = (props?.radius as any) ?? 0;
+      // 改onPress 注入dismiss 键盘
+      if (props?.onPress) {
+        const userOnPress = props.onPress;
+        props.onPress = (...args) => {
+          Keyboard.dismiss();
+          userOnPress(...args);
+        }
+      }
       return {
         radius,
         color: 'rgba(0, 0, 0, 0)',
