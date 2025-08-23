@@ -4,12 +4,32 @@ import { Keyboard, Platform, TouchableNativeFeedback } from 'react-native';
 export const themeConfig = createTheme({
   lightColors: {
     primary: "#2563eb",
-    background: '#F3F3F3',
+    background: "#F3F3F3",
+    white: "#FAFAFA",  
+    black: "#111111",
+
+    grey0: "#EEEEEE",
+    grey1: "#CCCCCC",
+    grey2: "#AAAAAA",
+    grey3: "#888888",
+    grey4: "#666666",
+    grey5: "#444444",
   },
+
   darkColors: {
     primary: "#3b82f6",
-    background: '#262626',
+    background: "#18181B",
+    white: "#111111",   
+    black: "#FAFAFA",
+
+    grey0: "#262626",
+    grey1: "#4C4C4C",
+    grey2: "#727272",
+    grey3: "#989898",
+    grey4: "#BEBEBE",
+    grey5: "#E4E4E4",
   },
+
   components: {
     Text: (props, theme) => ({
       style: {
@@ -24,7 +44,7 @@ export const themeConfig = createTheme({
         const userOnPress = props.onPress;
         props.onPress = (...args) => {
           Keyboard.dismiss();
-          userOnPress(...args) 
+          userOnPress(...args)
         }
       }
       return {

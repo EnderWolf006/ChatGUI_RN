@@ -15,11 +15,11 @@ function DrawerContent() {
   const ACTION_BUTTONS = [
     {
       title: t('drawer.actionbutton.new_chat'),
-      icon: <Lucide name='square-pen' size={22} color={theme.colors.grey2} />,
+      icon: <Lucide name='square-pen' size={22} color={theme.colors.grey5} />,
     },
     {
       title: t('drawer.actionbutton.assistant'),
-      icon: <Icon name='dependabot' type='octicon' color={theme.colors.grey2} size={22} />,
+      icon: <Icon name='dependabot' type='octicon' color={theme.colors.grey5} size={22} />,
     },
   ]
 

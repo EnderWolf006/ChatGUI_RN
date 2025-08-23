@@ -56,7 +56,7 @@ function FooterInput() {
         console.log('New chat pressed');
       }}
     >
-      <Lucide name='images' size={22} color={theme.colors.grey2} />
+      <Lucide name='images' size={22} color={theme.colors.grey5} />
     </Button>
     <View style={{
       backgroundColor: theme.colors.background,
@@ -78,7 +78,7 @@ function FooterInput() {
           fontSize: 16,
           lineHeight: 20,
         }}
-        placeholderTextColor={theme.colors.grey2}
+        placeholderTextColor={theme.colors.grey4}
         placeholder={t('chat.footer.placeholder')}
         multiline
         value={value}
@@ -95,7 +95,7 @@ function FooterInput() {
           console.log('New chat pressed');
         }}
       >
-        <Icon type="ionicon" name="mic-outline" color={theme.colors.grey2}></Icon>
+        <Icon type="ionicon" name="mic-outline" color={theme.colors.grey4}></Icon>
       </Button>
       <Button
         containerStyle={{ marginBottom: 7 }}
@@ -146,7 +146,7 @@ function Header() {
         numberOfLines={1}
         style={{ fontSize: 18, fontWeight: '700', color: theme.colors.black, }}
       >Gemini-2.5-pro</Text>
-      <Icon name="keyboard-arrow-down" type="material" containerStyle={{ right: 1, top: 1 }} color={theme.colors.grey2} />
+      <Icon name="keyboard-arrow-down" type="material" containerStyle={{ right: 1, top: 1 }} color={theme.colors.grey4} />
     </Pressable>
 
     {/* New chat */}
@@ -158,7 +158,7 @@ function Header() {
         console.log('New chat pressed');
       }}
     >
-      <Lucide name='square-pen' size={22} color={theme.colors.grey2} />
+      <Lucide name='square-pen' size={22} color={theme.colors.grey5} />
     </Button>
 
     {/* More */}
@@ -170,7 +170,7 @@ function Header() {
         console.log('More pressed');
       }}
     >
-      <Icon name="ellipsis-vertical" type="ionicon" size={22} color={theme.colors.grey2} />
+      <Icon name="ellipsis-vertical" type="ionicon" size={22} color={theme.colors.grey5} />
     </Button>
   </View>
 }

@@ -3,14 +3,13 @@ import useKeyboard from '@/hooks/useKeyboard';
 import { useDrawerStatus } from '@react-navigation/drawer';
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react';
-import { Animated, StyleSheet, ViewProps } from 'react-native';
+import { Animated, Platform, StyleSheet, ViewProps } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type EdgeFlags = { top?: boolean; bottom?: boolean; left?: boolean; right?: boolean };
 type SafeViewProps = ViewProps & {
   edges?: EdgeFlags;
-  bottomMode?: 'replace' | 'add'; // 默认 replace：键盘高度替换 inset.bottom
-  /** 若你没有使用 React Navigation，可手动控制是否启用键盘逻辑 */
+  bottomMode?: 'replace' | 'add'; 
   active?: boolean;
 };
 
@@ -18,19 +17,17 @@ export default function SafeView({
   style,
   children,
   edges,
-  bottomMode = 'replace',
+  bottomMode = Platform.OS == "android" ? 'add' : 'replace',
   active,
   ...rest
 }: SafeViewProps) {
   const insets = useSafeAreaInsets();
-  const isFocused = useIsFocused();         
-  const drawerStatus = useDrawerStatus?.(); 
+  const isFocused = useIsFocused();
+  const drawerStatus = useDrawerStatus?.();
   const drawerOpen = drawerStatus === 'open';
 
-  // 仅“聚焦且抽屉关闭”时启用键盘逻辑；否则当作 SafeAreaView
   const enabled = active ?? (isFocused && !drawerOpen);
 
-  // 键盘 Hook（按需启用）
   const { progress, heightAV } = useKeyboard({ enabled });
 
   const useTop = edges?.top ?? true;
@@ -56,7 +53,16 @@ export default function SafeView({
 
   const addPB = Animated.add(insetBottomAV, Animated.multiply(progress, heightAV));
 
-  const paddingBottom = useBottom ? (enabled ? (bottomMode === 'replace' ? replacePB : addPB) : insets.bottom) : 0;
+  let paddingBottom: number | Animated.AnimatedNode;
+  if (!useBottom) {
+    paddingBottom = 0;
+  } else if (!enabled) {
+    paddingBottom = insets.bottom;
+  } else if (bottomMode === 'replace') {
+    paddingBottom = replacePB;
+  } else {
+    paddingBottom = addPB;
+  }
 
   return (
     <Animated.View
