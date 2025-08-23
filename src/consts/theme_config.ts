@@ -23,8 +23,8 @@ export const themeConfig = createTheme({
       if (props?.onPress) {
         const userOnPress = props.onPress;
         props.onPress = (...args) => {
-          userOnPress(...args) 
           Keyboard.dismiss();
+          userOnPress(...args) 
         }
       }
       return {
