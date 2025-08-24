@@ -1,7 +1,8 @@
 import { Button, Text, useTheme } from "@rneui/themed";
 import React from "react";
+import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-
+import { MarkdownRenderer } from "../markdown/markdownRenderer";
 
 const CHAT_GLOBAL_HORIZONTAL_PADDING = 16;
 
@@ -34,7 +35,7 @@ function UserChatBubble() {
   const { theme } = useTheme();
   return (
     <Button
-      buttonStyle={{ justifyContent: 'flex-end', paddingHorizontal: CHAT_GLOBAL_HORIZONTAL_PADDING }}>
+      buttonStyle={{ justifyContent: 'flex-end', paddingHorizontal: CHAT_GLOBAL_HORIZONTAL_PADDING, paddingVertical: 0 }}>
       <Button
         radius={11 + 10} // lineheight / 2 + paddingVertical
         buttonStyle={{
@@ -57,10 +58,55 @@ function UserChatBubble() {
 
 function AssistantChatBubble() {
   const { theme } = useTheme();
-  return (
-    <Button
-      buttonStyle={{ justifyContent: 'flex-start', paddingHorizontal: CHAT_GLOBAL_HORIZONTAL_PADDING }}>
 
-    </Button>
+  const markdownExample = `# 这是一个Markdown示例
+
+这里是一段普通文本，包含**加粗文字**和*斜体文字*。
+
+## 代码示例
+
+这是一个内联代码：\`console.log('Hello World')\`
+
+\`\`\`javascript
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+  return \`Nice to meet you, \${name}\`;
+}
+
+greet('世界');
+\`\`\`
+
+## 其他功能
+
+> 这是一个引用块
+> 可以包含多行内容
+
+### 列表示例
+
+- 项目1
+- 项目2
+- 项目3
+
+1. 有序列表项1
+2. 有序列表项2
+3. 有序列表项3
+
+[这是一个链接](https://example.com)
+
+---
+
+**表格示例：**
+
+| 列1 | 列2 | 列3 |
+|-----|-----|-----|
+| 数据1 | 数据2 | 数据3 |
+| 数据4 | 数据5 | 数据6 |`;
+
+  return (
+    <View
+      style={{ paddingHorizontal: CHAT_GLOBAL_HORIZONTAL_PADDING, paddingVertical: 0 }}
+    >
+      <MarkdownRenderer>{markdownExample}</MarkdownRenderer>
+    </View>
   );
 }
